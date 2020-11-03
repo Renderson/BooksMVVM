@@ -27,11 +27,11 @@ class BooksDetailsActivity : BaseActivity() {
         private const val EXTRA_TITLE = "EXTRA_TITLE"
         private const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
 
-        fun getStartIntent(context: Context, title: String, description: String): Intent{
-            return Intent(context, BooksDetailsActivity::class.java ).apply {
-                putExtra(EXTRA_TITLE, title)
-                putExtra(EXTRA_DESCRIPTION, description)
+            fun getStartIntent(context: Context, title: String, description: String): Intent{
+                return Intent(context, BooksDetailsActivity::class.java ).apply {
+                    putExtra(EXTRA_TITLE, title)
+                    putExtra(EXTRA_DESCRIPTION, description)
+                }
             }
-        }
     }
 }
