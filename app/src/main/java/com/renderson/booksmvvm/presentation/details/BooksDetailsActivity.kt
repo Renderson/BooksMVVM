@@ -3,13 +3,11 @@ package com.renderson.booksmvvm.presentation.details
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.renderson.booksmvvm.R
 import com.renderson.booksmvvm.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_books_details.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import java.security.AccessControlContext
 
 class BooksDetailsActivity : BaseActivity() {
 

@@ -3,15 +3,14 @@ package com.renderson.booksmvvm.presentation.books
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.booksmvvm.R
 import com.renderson.booksmvvm.data.model.Book
 import kotlinx.android.synthetic.main.item_book.view.*
 
 class BooksAdapter(
-        private val books: List<Book>,
-        val onItemClickListener: ((book: Book) -> Unit)
+    private val books: List<Book>,
+    private val onItemClickListener: ((book: Book) -> Unit)
 ) : RecyclerView.Adapter<BooksAdapter.BooksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, view: Int): BooksViewHolder{
