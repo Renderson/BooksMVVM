@@ -1,6 +1,5 @@
 package com.renderson.booksmvvm.presentation.books
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,32 +16,25 @@ class BooksViewModel(private val dataSource: BooksRepository) : ViewModel() {
 
     val viewFlipperLiveData: MutableLiveData<Pair<Int, Int?>> = MutableLiveData()
 
-    private var qtdBooks = 0
-
     fun getBooks() {
         dataSource.getBooks { result: BooksResult ->
             when (result) {
                 is BooksResult.Success -> {
                     _booksLiveData.value = result.books
-                    qtdBooks += result.books.size
-                    Log.d("QTD BOOKS", qtdBooks.toString())
                     viewFlipperLiveData.value = Pair(VIEW_FLIPPER_BOOKS, null)
                 }
                 is BooksResult.ApiError -> {
                     if (result.statusCode == 401) {
                         viewFlipperLiveData.value =
                             Pair(VIEW_FLIPPER_ERROR, R.string.books_error_401)
-                        Log.d("QTD BOOKS ERROR1", result.statusCode.toString())
                     } else {
                         viewFlipperLiveData.value =
                             Pair(VIEW_FLIPPER_ERROR, R.string.books_error_400_generic)
-                        Log.d("QTD BOOKS ERROR2", "2")
                     }
                 }
                 is BooksResult.ServerError -> {
                     viewFlipperLiveData.value =
                         Pair(VIEW_FLIPPER_ERROR, R.string.books_error_500_generic)
-                    Log.d("QTD BOOKS ERROR3", "result.statusCode.toString()")
                 }
             }
         }

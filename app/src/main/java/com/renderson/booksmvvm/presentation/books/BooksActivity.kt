@@ -1,12 +1,16 @@
 package com.renderson.booksmvvm.presentation.books
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.booksmvvm.R
 import com.renderson.booksmvvm.data.ApiService
+import com.renderson.booksmvvm.data.model.Book
 import com.renderson.booksmvvm.data.repository.BooksApiDataSource
 import com.renderson.booksmvvm.presentation.base.BaseActivity
 import com.renderson.booksmvvm.presentation.details.BooksDetailsActivity
@@ -65,6 +69,11 @@ class BooksActivity : BaseActivity() {
         })
     }
 
+    private fun removeObserve() {
+        viewModel.booksLiveData.removeObservers(this)
+        viewModel.viewFlipperLiveData.removeObservers(this)
+    }
+
     override fun onResume() {
         super.onResume()
         shimmerFrameLayout.startShimmerAnimation()
@@ -73,5 +82,10 @@ class BooksActivity : BaseActivity() {
     override fun onPause() {
         shimmerFrameLayout.stopShimmerAnimation()
         super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        removeObserve()
     }
 }
