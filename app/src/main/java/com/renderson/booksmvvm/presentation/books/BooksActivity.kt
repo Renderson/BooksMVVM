@@ -1,16 +1,12 @@
 package com.renderson.booksmvvm.presentation.books
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.booksmvvm.R
 import com.renderson.booksmvvm.data.ApiService
-import com.renderson.booksmvvm.data.model.Book
 import com.renderson.booksmvvm.data.repository.BooksApiDataSource
 import com.renderson.booksmvvm.presentation.base.BaseActivity
 import com.renderson.booksmvvm.presentation.details.BooksDetailsActivity
@@ -26,6 +22,11 @@ class BooksActivity : BaseActivity() {
         setContentView(R.layout.activity_books)
 
         setupToolbar(toolbarMain, R.string.books_title)
+
+        refreshLayout.setColorSchemeResources(R.color.colorAccent)
+        refreshLayout.setOnRefreshListener {
+            viewModel.getBooks()
+        }
 
         viewModel = ViewModelProvider(
             viewModelStore,
@@ -60,6 +61,7 @@ class BooksActivity : BaseActivity() {
 
         viewModel.viewFlipperLiveData.observe(this, Observer {
             it?.let { viewFlipper ->
+            refreshLayout.isRefreshing = false
                 viewFlipperBooks.displayedChild = viewFlipper.first
 
                 viewFlipper.second?.let { errorMessageResId ->
